@@ -82,7 +82,7 @@ export function FilterBar() {
 
   return (
     <div style={{ marginBottom: 16 }}>
-      <Space wrap style={{ width: '100%' }}>
+      <Space className="filter-bar" wrap style={{ width: '100%' }}>
         <Input
           placeholder="搜索公司/岗位/城市/渠道..."
           prefix={<SearchOutlined />}

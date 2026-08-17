@@ -241,7 +241,7 @@ export function DashboardView() {
   return (
     <div>
       {/* ── Top stats ── */}
-      <Row gutter={[16, 16]}>
+      <Row gutter={[16, 16]} className="dashboard-grid">
         <Col xs={12} sm={6}>
           <Card size="small">
             <Statistic
@@ -287,7 +287,7 @@ export function DashboardView() {
       </Row>
 
       {/* ── Funnel ── */}
-      <Row gutter={[16, 16]} style={{ marginTop: 16 }}>
+      <Row gutter={[16, 16]} style={{ marginTop: 16 }} className="dashboard-grid">
         <Col span={24}>
           <Card title="📊 投递漏斗" size="small">
             {applications.length > 0 ? (
@@ -340,7 +340,7 @@ export function DashboardView() {
       </Row>
 
       {/* ── Charts row 1: stage donut + trend ── */}
-      <Row gutter={[16, 16]} style={{ marginTop: 16 }}>
+      <Row gutter={[16, 16]} style={{ marginTop: 16 }} className="dashboard-grid">
         <Col xs={24} lg={12}>
           <Card title="各阶段分布" size="small">
             {stageDistribution.length > 0 ? (
@@ -362,7 +362,7 @@ export function DashboardView() {
       </Row>
 
       {/* ── Charts row 2: channel bar + bucket pie ── */}
-      <Row gutter={[16, 16]} style={{ marginTop: 16 }}>
+      <Row gutter={[16, 16]} style={{ marginTop: 16 }} className="dashboard-grid">
         <Col xs={24} lg={12}>
           <Card title="渠道分布" size="small">
             {channelData.length > 0 ? (
@@ -384,7 +384,7 @@ export function DashboardView() {
       </Row>
 
       {/* ── Active applications ── */}
-      <Row gutter={[16, 16]} style={{ marginTop: 16 }}>
+      <Row gutter={[16, 16]} style={{ marginTop: 16 }} className="dashboard-grid">
         <Col span={24}>
           <Card title="🔥 进行中的投递" size="small">
             {activeApps.length > 0 ? (

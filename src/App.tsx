@@ -110,6 +110,7 @@ function App() {
     >
       <Layout className={darkMode ? 'dark' : ''} style={{ minHeight: '100vh', background: darkMode ? '#141414' : '#f5f5f5' }}>
         <Header
+          className="app-header"
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -122,7 +123,7 @@ function App() {
             zIndex: 100,
           }}
         >
-          <Space>
+          <Space className="app-header-title">
             <img src="/logo.svg" alt="logo" style={{ height: 28, width: 28 }} />
             <Title level={4} style={{ margin: 0, color: darkMode ? '#fff' : undefined }}>
               投递追踪器
@@ -136,7 +137,7 @@ function App() {
             style={{ border: 'none', background: 'transparent', flex: 1, justifyContent: 'center' }}
           />
 
-          <Space>
+          <Space className="app-header-actions">
             <Button
               type="primary"
               icon={<PlusOutlined />}
@@ -159,7 +160,7 @@ function App() {
           </Space>
         </Header>
 
-        <Content style={{ padding: '16px 24px', overflow: 'auto' }}>
+        <Content className="app-content" style={{ padding: '16px 24px', overflow: 'auto' }}>
           <Routes>
             <Route path="/" element={<KanbanView />} />
             <Route path="/table" element={<TableView />} />

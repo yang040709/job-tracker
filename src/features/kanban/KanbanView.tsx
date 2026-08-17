@@ -312,6 +312,7 @@ export function KanbanView() {
           onDragEnd={handleDragEnd}
         >
           <div
+            className="kanban-grid"
             style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(4, 1fr)',
