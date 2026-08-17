@@ -33,7 +33,9 @@ body {
   transition: background-color 0.3s ease;
 }
 
-/* ── Header: always single row, never wrap ── */
+/* ══════════════════════════════════
+   Header: always single row
+   ══════════════════════════════════ */
 
 .app-header {
   flex-wrap: nowrap !important;
@@ -51,13 +53,20 @@ body {
   white-space: nowrap;
 }
 
+/* Menu: horizontal scroll, NO vertical scrollbar */
 .app-header .ant-menu {
   flex: 1 1 0 !important;
   min-width: 0 !important;
-  overflow-x: auto;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
   justify-content: center;
   border: none !important;
   background: transparent !important;
+}
+
+/* Kill the vertical scrollbar on the menu UL */
+.app-header .ant-menu::-webkit-scrollbar {
+  height: 0 !important;
 }
 
 .app-header .ant-menu-item {
@@ -71,7 +80,7 @@ body {
   gap: 6px !important;
 }
 
-/* ── Kanban grid: responsive columns ── */
+/* ── Kanban grid ── */
 
 .kanban-grid {
   display: grid;
@@ -100,7 +109,7 @@ body {
 }
 
 /* ══════════════════════════════════
-   Breakpoint: ≤ 1200px (tablet)
+   ≤ 1200px (tablet)
    ══════════════════════════════════ */
 
 @media (max-width: 1200px) {
@@ -117,20 +126,18 @@ body {
     padding: 0 6px !important;
   }
 
-  /* Kanban: 2 columns */
   .kanban-grid {
     grid-template-columns: repeat(2, 1fr) !important;
   }
 }
 
 /* ══════════════════════════════════
-   Breakpoint: ≤ 768px (mobile)
+   ≤ 900px (large phone)
    ══════════════════════════════════ */
 
-@media (max-width: 768px) {
-  /* Header: compress but stay horizontal */
+@media (max-width: 900px) {
   .app-header {
-    height: 52px !important;
+    height: 56px !important;
     padding: 0 10px !important;
   }
 
@@ -140,15 +147,53 @@ body {
 
   .app-header .ant-menu-item {
     font-size: 12px;
+    padding: 0 5px !important;
+  }
+
+  /* Keep button text but use shorter labels via CSS */
+  .app-header-actions .ant-btn {
+    font-size: 12px;
+    padding: 0 6px !important;
+  }
+
+  .kanban-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* ══════════════════════════════════
+   ≤ 640px (mobile)
+   ══════════════════════════════════ */
+
+@media (max-width: 640px) {
+  .app-header {
+    height: 52px !important;
+    padding: 0 8px !important;
+    gap: 6px;
+  }
+
+  .app-header-title img {
+    height: 24px !important;
+    width: 24px !important;
+  }
+
+  .app-header-title .ant-typography {
+    font-size: 13px !important;
+  }
+
+  .app-header .ant-menu-item {
+    font-size: 12px;
     padding: 0 4px !important;
   }
 
-  /* Hide button text, keep icons only */
-  .app-header-actions .ant-btn span:not(.anticon) {
-    display: none;
-  }
+  /* Buttons: keep icons + short text, just shrink */
   .app-header-actions .ant-btn {
-    padding: 0 8px !important;
+    font-size: 12px;
+    padding: 0 6px !important;
+    gap: 2px;
+  }
+  .app-header-actions .ant-btn .anticon {
+    font-size: 14px;
   }
 
   /* Kanban: 1 column */
@@ -157,7 +202,6 @@ body {
     gap: 12px;
   }
 
-  /* Filter bar: full width inputs */
   .filter-bar {
     flex-direction: column;
   }
@@ -167,41 +211,37 @@ body {
     min-width: 0 !important;
   }
 
-  /* Content */
   .app-content {
     padding: 10px 8px !important;
   }
 
-  /* Dashboard: already single column via .dashboard-grid */
-
-  /* Drawer: full width */
   .ant-drawer-body {
     padding: 12px !important;
   }
 
-  /* Table: smaller font */
   .ant-table {
     font-size: 12px;
   }
 }
 
 /* ══════════════════════════════════
-   Breakpoint: ≤ 480px (small phone)
+   ≤ 420px (small phone)
    ══════════════════════════════════ */
 
-@media (max-width: 480px) {
+@media (max-width: 420px) {
   .app-header {
     height: 48px !important;
-    padding: 0 8px !important;
+    padding: 0 6px !important;
+    gap: 4px;
   }
 
   .app-header-title img {
-    height: 22px !important;
-    width: 22px !important;
+    height: 20px !important;
+    width: 20px !important;
   }
 
   .app-header-title .ant-typography {
-    font-size: 13px !important;
+    font-size: 12px !important;
   }
 
   .app-header .ant-menu-item {
@@ -210,7 +250,8 @@ body {
   }
 
   .app-header-actions .ant-btn {
-    padding: 0 5px !important;
+    padding: 0 4px !important;
+    font-size: 11px;
   }
 
   .app-content {
