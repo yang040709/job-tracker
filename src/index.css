@@ -33,94 +33,187 @@ body {
   transition: background-color 0.3s ease;
 }
 
-/* ── Mobile responsive ── */
+/* ── Header: always single row, never wrap ── */
 
-@media (max-width: 768px) {
-  /* Header: stack vertically */
+.app-header {
+  flex-wrap: nowrap !important;
+  height: 64px !important;
+  padding: 0 16px !important;
+}
+
+.app-header-title {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.app-header-title .ant-typography {
+  font-size: 17px !important;
+  white-space: nowrap;
+}
+
+.app-header .ant-menu {
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+  overflow-x: auto;
+  justify-content: center;
+  border: none !important;
+  background: transparent !important;
+}
+
+.app-header .ant-menu-item {
+  white-space: nowrap;
+  font-size: 14px;
+  padding: 0 10px !important;
+}
+
+.app-header-actions {
+  flex-shrink: 0;
+  gap: 6px !important;
+}
+
+/* ── Kanban grid: responsive columns ── */
+
+.kanban-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+/* ── Filter bar ── */
+
+.filter-bar {
+  flex-wrap: wrap;
+}
+
+/* ── Dashboard grid ── */
+
+.dashboard-grid .ant-col {
+  flex: 0 0 100% !important;
+  max-width: 100% !important;
+}
+
+/* ── Content ── */
+
+.app-content {
+  padding: 16px 24px !important;
+  overflow: auto;
+}
+
+/* ══════════════════════════════════
+   Breakpoint: ≤ 1200px (tablet)
+   ══════════════════════════════════ */
+
+@media (max-width: 1200px) {
   .app-header {
-    flex-wrap: wrap;
-    height: auto !important;
-    padding: 8px 12px !important;
-    gap: 8px;
+    padding: 0 12px !important;
   }
-  .app-header .ant-menu {
-    order: 3;
-    width: 100%;
-    justify-content: center;
-    overflow-x: auto;
-    flex: none !important;
+
+  .app-header-title .ant-typography {
+    font-size: 15px !important;
   }
+
   .app-header .ant-menu-item {
     font-size: 13px;
-    padding: 0 8px;
+    padding: 0 6px !important;
   }
-  .app-header-actions {
-    gap: 4px;
+
+  /* Kanban: 2 columns */
+  .kanban-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
   }
-  .app-header-actions .ant-btn span {
+}
+
+/* ══════════════════════════════════
+   Breakpoint: ≤ 768px (mobile)
+   ══════════════════════════════════ */
+
+@media (max-width: 768px) {
+  /* Header: compress but stay horizontal */
+  .app-header {
+    height: 52px !important;
+    padding: 0 10px !important;
+  }
+
+  .app-header-title .ant-typography {
+    font-size: 14px !important;
+  }
+
+  .app-header .ant-menu-item {
+    font-size: 12px;
+    padding: 0 4px !important;
+  }
+
+  /* Hide button text, keep icons only */
+  .app-header-actions .ant-btn span:not(.anticon) {
     display: none;
   }
-  .app-header-title {
-    font-size: 16px !important;
+  .app-header-actions .ant-btn {
+    padding: 0 8px !important;
   }
 
-  /* Kanban: horizontal scroll */
+  /* Kanban: 1 column */
   .kanban-grid {
-    grid-template-columns: repeat(4, 280px) !important;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 8px;
-  }
-  .kanban-grid > div {
-    scroll-snap-align: start;
+    grid-template-columns: 1fr !important;
+    gap: 12px;
   }
 
-  /* Filter bar: stack */
+  /* Filter bar: full width inputs */
   .filter-bar {
-    flex-wrap: wrap;
+    flex-direction: column;
   }
   .filter-bar .ant-select,
   .filter-bar .ant-picker {
+    width: 100% !important;
     min-width: 0 !important;
-    flex: 1 1 calc(50% - 4px);
-  }
-  .filter-bar .ant-input-search {
-    flex: 1 1 100%;
   }
 
-  /* Content padding */
+  /* Content */
   .app-content {
-    padding: 12px 8px !important;
+    padding: 10px 8px !important;
   }
 
-  /* Dashboard: single column */
-  .dashboard-grid .ant-col {
-    flex: 0 0 100% !important;
-    max-width: 100% !important;
-  }
+  /* Dashboard: already single column via .dashboard-grid */
 
-  /* Funnel: stack vertically */
-  .dashboard-grid .ant-card-body > div[style*="display: flex"] {
-    flex-direction: column !important;
-  }
-
-  /* Detail drawer: full width */
+  /* Drawer: full width */
   .ant-drawer-body {
     padding: 12px !important;
   }
 
-  /* Table: horizontal scroll */
+  /* Table: smaller font */
   .ant-table {
-    font-size: 13px;
+    font-size: 12px;
   }
 }
 
+/* ══════════════════════════════════
+   Breakpoint: ≤ 480px (small phone)
+   ══════════════════════════════════ */
+
 @media (max-width: 480px) {
-  .app-header-actions .ant-btn {
-    padding: 0 6px;
+  .app-header {
+    height: 48px !important;
+    padding: 0 8px !important;
   }
-  .kanban-grid {
-    grid-template-columns: repeat(4, 260px) !important;
+
+  .app-header-title img {
+    height: 22px !important;
+    width: 22px !important;
+  }
+
+  .app-header-title .ant-typography {
+    font-size: 13px !important;
+  }
+
+  .app-header .ant-menu-item {
+    font-size: 11px;
+    padding: 0 3px !important;
+  }
+
+  .app-header-actions .ant-btn {
+    padding: 0 5px !important;
+  }
+
+  .app-content {
+    padding: 8px 6px !important;
   }
 }

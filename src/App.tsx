@@ -123,9 +123,9 @@ function App() {
             zIndex: 100,
           }}
         >
-          <Space className="app-header-title">
-            <img src="/logo.svg" alt="logo" style={{ height: 28, width: 28 }} />
-            <Title level={4} style={{ margin: 0, color: darkMode ? '#fff' : undefined }}>
+          <Space className="app-header-title" nowrap>
+            <img src="/logo.svg" alt="logo" style={{ height: 28, width: 28, flexShrink: 0 }} />
+            <Title level={4} style={{ margin: 0, color: darkMode ? '#fff' : undefined, whiteSpace: 'nowrap' }}>
               投递追踪器
             </Title>
           </Space>
@@ -134,10 +134,10 @@ function App() {
             mode="horizontal"
             selectedKeys={[selectedKey]}
             items={menuItems}
-            style={{ border: 'none', background: 'transparent', flex: 1, justifyContent: 'center' }}
+            style={{ border: 'none', background: 'transparent', flex: 1, justifyContent: 'center', minWidth: 0 }}
           />
 
-          <Space className="app-header-actions">
+          <Space className="app-header-actions" nowrap>
             <Button
               type="primary"
               icon={<PlusOutlined />}
