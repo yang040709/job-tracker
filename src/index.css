@@ -94,6 +94,16 @@ body {
   flex-wrap: wrap;
 }
 
+.filter-search {
+  width: 280px;
+  min-width: 0;
+}
+
+.filter-select {
+  min-width: 120px;
+  max-width: 200px;
+}
+
 /* ── Dashboard grid ── */
 
 .dashboard-grid .ant-col {
@@ -204,11 +214,14 @@ body {
 
   .filter-bar {
     flex-direction: column;
+    gap: 8px;
   }
-  .filter-bar .ant-select,
-  .filter-bar .ant-picker {
+  .filter-search {
     width: 100% !important;
-    min-width: 0 !important;
+  }
+  .filter-select {
+    width: 100% !important;
+    max-width: none !important;
   }
 
   .app-content {

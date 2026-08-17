@@ -89,16 +89,16 @@ export function FilterBar() {
           value={filters.keyword}
           onChange={(e) => handleKeywordChange(e.target.value)}
           allowClear
-          style={{ width: 280 }}
+          className="filter-search"
         />
 
         <Select
           mode="multiple"
-          placeholder="状态筛选"
+          placeholder="状态"
           value={filters.buckets}
           onChange={handleBucketChange}
-          style={{ minWidth: 160 }}
-          maxTagCount={2}
+          className="filter-select"
+          maxTagCount={1}
           allowClear
         >
           {STATUS_BUCKETS.map((b) => (
@@ -110,11 +110,11 @@ export function FilterBar() {
 
         <Select
           mode="multiple"
-          placeholder="类别筛选"
+          placeholder="类别"
           value={filters.categories}
           onChange={handleCategoryChange}
-          style={{ minWidth: 140 }}
-          maxTagCount={2}
+          className="filter-select"
+          maxTagCount={1}
           allowClear
         >
           {categories.map((c) => (
@@ -124,11 +124,11 @@ export function FilterBar() {
 
         <Select
           mode="multiple"
-          placeholder="渠道筛选"
+          placeholder="渠道"
           value={filters.channels}
           onChange={handleChannelChange}
-          style={{ minWidth: 160 }}
-          maxTagCount={2}
+          className="filter-select"
+          maxTagCount={1}
           allowClear
         >
           {channels.map((c) => (
