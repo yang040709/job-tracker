@@ -132,10 +132,10 @@ export function AboutView() {
         </div>
         <div style={{ marginTop: 8 }}>
           <Typography.Link
-            href="https://github.com/yang-jiacheng/job-application-tracker"
+            href="https://github.com/yang040709/job-tracker"
             target="_blank"
           >
-            github.com/yang-jiacheng/job-application-tracker
+            github.com/yang040709/job-tracker
           </Typography.Link>
         </div>
         <Paragraph type="secondary" style={{ marginTop: 12, marginBottom: 0 }}>
