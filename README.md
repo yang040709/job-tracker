@@ -2,9 +2,7 @@
 
 秋招/春招/社招投递进度管理工具。通过看板拖拽直观管理面试流程，通过数据面板洞察投递转化率。
 
-**在线体验**: [https://job-application-7vhxccu2b.vercel.app](https://job-application-7vhxccu2b.vercel.app)
-
-![看板视图预览](./public/preview.png)
+**在线体验**: [https://job-application-6p9ons2m1.vercel.app](https://job-application-6p9ons2m1.vercel.app)
 
 ## ✨ 功能特性
 
