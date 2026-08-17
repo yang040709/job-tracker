@@ -174,6 +174,11 @@ export function TableView() {
           setEditApp(app);
           setFormOpen(true);
         }}
+        onDelete={async (app) => {
+          await deleteApplication(app.id);
+          setSelectedApp(null);
+          message.success("已删除");
+        }}
       />
 
       <ApplicationForm

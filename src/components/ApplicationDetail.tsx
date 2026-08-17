@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Drawer, Tag, Typography, Timeline, Input, Button, Space, Divider, Empty } from 'antd';
+import { Drawer, Tag, Typography, Timeline, Input, Button, Space, Divider, Empty, Popconfirm } from 'antd';
 import {
   EnvironmentOutlined,
   ClockCircleOutlined,
@@ -8,6 +8,7 @@ import {
   LinkOutlined,
   DollarOutlined,
   EditOutlined,
+  DeleteOutlined,
   SendOutlined,
   PlusOutlined,
   FileTextOutlined,
@@ -24,6 +25,7 @@ interface Props {
   app: Application | null;
   onClose: () => void;
   onEdit: (app: Application) => void;
+  onDelete: (app: Application) => void;
 }
 
 const typeIcons: Record<TimelineEntryType, React.ReactNode> = {
@@ -33,7 +35,7 @@ const typeIcons: Record<TimelineEntryType, React.ReactNode> = {
   note_added: <FileTextOutlined style={{ color: '#722ed1' }} />,
 };
 
-export function ApplicationDetail({ app, onClose, onEdit }: Props) {
+export function ApplicationDetail({ app, onClose, onEdit, onDelete }: Props) {
   const { stages, timeline, addNote } = useAppStore();
   const [note, setNote] = useState('');
 
@@ -68,9 +70,23 @@ export function ApplicationDetail({ app, onClose, onEdit }: Props) {
       width={520}
       extra={
         app && (
-          <Button icon={<EditOutlined />} onClick={() => onEdit(app)}>
-            编辑
-          </Button>
+          <Space>
+            <Button icon={<EditOutlined />} onClick={() => onEdit(app)}>
+              编辑
+            </Button>
+            <Popconfirm
+              title="确定删除此投递记录？"
+              description="删除后无法恢复"
+              onConfirm={() => onDelete(app)}
+              okText="删除"
+              cancelText="取消"
+              okButtonProps={{ danger: true }}
+            >
+              <Button danger icon={<DeleteOutlined />}>
+                删除
+              </Button>
+            </Popconfirm>
+          </Space>
         )
       }
     >

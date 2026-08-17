@@ -16,7 +16,7 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { Card, Tag, Button, Typography, Empty, Space } from 'antd';
+import { Card, Tag, Button, Typography, Empty, Space, message } from 'antd';
 import {
   ClockCircleOutlined,
   EnvironmentOutlined,
@@ -193,6 +193,7 @@ export function KanbanView() {
     stages,
     getFilteredApplications,
     changeStage,
+    deleteApplication,
     darkMode,
   } = useAppStore();
 
@@ -382,6 +383,11 @@ export function KanbanView() {
           setSelectedApp(null);
           setEditApp(app);
           setFormOpen(true);
+        }}
+        onDelete={async (app) => {
+          await deleteApplication(app.id);
+          setSelectedApp(null);
+          message.success("已删除");
         }}
       />
 

@@ -39,7 +39,7 @@ export function AboutView() {
     <div style={{ maxWidth: 720, margin: "0 auto" }}>
       {/* Header */}
       <Card style={{ textAlign: "center", marginBottom: 16 }}>
-        <img src="/logo.svg" alt="logo" style={{ height: 64, width: 64, marginBottom: 12 }} />
+        <img src="/logo.svg" alt="logo" style={{ height: 64, width: 64, marginBottom: 12, display: "block", margin: "0 auto 12px auto" }} />
         <Title level={3} style={{ marginBottom: 4 }}>投递追踪器</Title>
         <Text type="secondary">Job Application Tracker</Text>
         <div style={{ marginTop: 12 }}>
