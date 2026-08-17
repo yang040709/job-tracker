@@ -1,6 +1,6 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Card, Table, Button, Modal, Form, Input, Select, Popconfirm, message, Typography, Space, Tag, Row, Col, Radio } from 'antd';
-import { PlusOutlined, EditOutlined, DeleteOutlined, ThunderboltOutlined, HolderOutlined } from '@ant-design/icons';
+import { PlusOutlined, EditOutlined, DeleteOutlined, ThunderboltOutlined, HolderOutlined, WarningOutlined } from '@ant-design/icons';
 import { useAppStore } from '../../stores/appStore';
 import { STATUS_BUCKETS, BUCKET_COLORS } from '../../types';
 import type { Stage } from '../../types';
@@ -48,12 +48,49 @@ const STAGE_PRESETS: { label: string; desc: string; stages: Omit<Stage, 'id'>[] 
 ];
 
 export function SettingsView() {
-  const { stages, createStage, updateStage, deleteStage, reorderStages, resetStages } = useAppStore();
+  const { stages, createStage, updateStage, deleteStage, reorderStages, resetStages, clearAllData } = useAppStore();
   const [modalOpen, setModalOpen] = useState(false);
   const [editingStage, setEditingStage] = useState<Stage | null>(null);
   const [presetModalOpen, setPresetModalOpen] = useState(false);
   const [selectedPreset, setSelectedPreset] = useState(1);
   const [form] = Form.useForm();
+
+  // Clear data modal
+  const [clearModalOpen, setClearModalOpen] = useState(false);
+  const [countdown, setCountdown] = useState(5);
+  const [clearing, setClearing] = useState(false);
+
+  useEffect(() => {
+    if (!clearModalOpen) {
+      setCountdown(5);
+      setClearing(false);
+      return;
+    }
+    setCountdown(5);
+    const timer = setInterval(() => {
+      setCountdown((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [clearModalOpen]);
+
+  const handleClearData = async () => {
+    setClearing(true);
+    try {
+      await clearAllData();
+      message.success('所有数据已清空');
+      setClearModalOpen(false);
+    } catch {
+      message.error('清空失败，请重试');
+    } finally {
+      setClearing(false);
+    }
+  };
 
   // Drag state
   const dragIndex = useRef<number | null>(null);
@@ -338,6 +375,78 @@ export function SettingsView() {
         <div style={{ marginTop: 16 }}>
           <Text type="secondary" style={{ fontSize: 12 }}>
             💡 你也可以在上方表格中手动新增、删除、重命名阶段来自定义流程
+          </Text>
+        </div>
+      </Modal>
+
+      {/* 危险区域：清除数据 */}
+      <Card
+        title={
+          <Space>
+            <WarningOutlined style={{ color: '#ff4d4f' }} />
+            <span style={{ color: '#ff4d4f' }}>危险操作</span>
+          </Space>
+        }
+        style={{ marginTop: 16, borderColor: '#ff4d4f' }}
+      >
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div>
+            <Text strong>一键清除所有数据</Text>
+            <br />
+            <Text type="secondary" style={{ fontSize: 12 }}>
+              清空所有投递记录、面试阶段、时间线和保存的视图。此操作不可恢复。
+            </Text>
+          </div>
+          <Button
+            danger
+            icon={<DeleteOutlined />}
+            onClick={() => setClearModalOpen(true)}
+          >
+            清除所有数据
+          </Button>
+        </div>
+      </Card>
+
+      {/* 清除数据确认弹窗 */}
+      <Modal
+        title={
+          <Space>
+            <WarningOutlined style={{ color: '#ff4d4f' }} />
+            <span>确认清除所有数据？</span>
+          </Space>
+        }
+        open={clearModalOpen}
+        onCancel={() => setClearModalOpen(false)}
+        footer={[
+          <Button key="cancel" onClick={() => setClearModalOpen(false)}>
+            取消
+          </Button>,
+          <Button
+            key="confirm"
+            danger
+            type="primary"
+            disabled={countdown > 0}
+            loading={clearing}
+            onClick={handleClearData}
+          >
+            {countdown > 0 ? `确认清除（${countdown}s）` : '确认清除'}
+          </Button>,
+        ]}
+      >
+        <div style={{ padding: '8px 0' }}>
+          <div style={{ background: '#fff2f0', border: '1px solid #ffccc7', borderRadius: 6, padding: 12, marginBottom: 12 }}>
+            <Text style={{ color: '#ff4d4f' }}>
+              ⚠️ 此操作将永久删除以下所有数据：
+            </Text>
+            <ul style={{ margin: '8px 0 0 0', paddingLeft: 20, color: '#ff4d4f' }}>
+              <li>所有投递记录</li>
+              <li>所有面试阶段配置</li>
+              <li>所有时间线记录</li>
+              <li>所有保存的筛选视图</li>
+            </ul>
+          </div>
+          <Text type="secondary" style={{ fontSize: 13 }}>
+            清除后将恢复为默认阶段配置。建议先使用「导出」功能备份数据。
           </Text>
         </div>
       </Modal>

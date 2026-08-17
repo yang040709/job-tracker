@@ -45,6 +45,7 @@ interface AppState {
   exportData: () => Promise<string>;
   importData: (jsonStr: string) => Promise<void>;
   importCSV: (csvText: string) => Promise<number>;
+  clearAllData: () => Promise<void>;
 
   // Derived
   getFilteredApplications: () => Application[];
@@ -231,6 +232,14 @@ export const useAppStore = create<AppState>((set, get) => ({
     });
 
     return await db.importApplications(apps);
+  },
+
+  clearAllData: async () => {
+    await db.clearAllData();
+    set({ applications: [], stages: [], timeline: [], savedViews: [] });
+    // Re-initialize default stages
+    await db.initializeDB();
+    await get().loadData();
   },
 
   getFilteredApplications: () => {

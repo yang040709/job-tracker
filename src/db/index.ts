@@ -237,3 +237,13 @@ export async function importAllData(data: {
     }
   });
 }
+
+/** Clear all data from IndexedDB */
+export async function clearAllData(): Promise<void> {
+  await db.transaction('rw', [db.applications, db.stages, db.timeline, db.savedViews], async () => {
+    await db.applications.clear();
+    await db.stages.clear();
+    await db.timeline.clear();
+    await db.savedViews.clear();
+  });
+}
